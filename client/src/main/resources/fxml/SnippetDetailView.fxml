@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.codecollab.client.ui.snippet.SnippetDetailController"
+      spacing="0">
+
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scroll-pane">
+        <VBox spacing="16" style="-fx-padding: 20;">
+
+            <!-- Header -->
+            <VBox spacing="4">
+                <Label fx:id="titleLabel" text="Loading…" styleClass="label-title" />
+                <HBox spacing="12">
+                    <Label fx:id="authorLabel" styleClass="label-muted" />
+                    <Label fx:id="languageLabel" styleClass="label-tag" />
+                    <Label fx:id="viewsLabel" styleClass="label-muted" />
+                </HBox>
+                <HBox fx:id="tagsBox" spacing="6" />
+            </VBox>
+
+            <!-- Vote + action row -->
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Button fx:id="upvoteBtn" text="▲ Upvote" onAction="#handleUpvote"
+                        styleClass="btn-secondary" />
+                <Label fx:id="scoreLabel" text="▲ 0" />
+                <Button fx:id="downvoteBtn" text="▼ Downvote" onAction="#handleDownvote"
+                        styleClass="btn-secondary" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="editBtn" text="✎ Edit" onAction="#handleEdit"
+                        styleClass="btn-secondary" visible="false" />
+                <Button fx:id="deleteBtn" text="✕ Delete" onAction="#handleDelete"
+                        styleClass="btn-danger" visible="false" />
+            </HBox>
+
+            <!-- Code -->
+            <VBox spacing="4">
+                <Label text="Code" style="-fx-font-weight: bold;" />
+                <TextArea fx:id="codeArea" editable="false" prefRowCount="18"
+                          styleClass="code-editor"
+                          style="-fx-font-family: 'Consolas','Courier New',monospace; -fx-font-size: 13;" />
+            </VBox>
+
+            <!-- AST Analysis -->
+            <VBox fx:id="astBox" spacing="8" styleClass="card">
+                <Label text="⚙ Code Analysis" style="-fx-font-weight: bold;" />
+                <Label fx:id="qualityLabel" text="" />
+                <VBox fx:id="issuesBox" spacing="4" />
+            </VBox>
+
+            <!-- Comments -->
+            <VBox spacing="12">
+                <Label text="Comments" style="-fx-font-weight: bold; -fx-font-size: 15;" />
+                <VBox fx:id="commentsBox" spacing="8" />
+                <HBox spacing="8" alignment="CENTER_LEFT">
+                    <TextArea fx:id="commentInput" promptText="Write a comment…"
+                              prefRowCount="2" HBox.hgrow="ALWAYS" styleClass="text-area" />
+                    <Button text="Post" onAction="#handleAddComment" styleClass="btn-primary" />
+                </HBox>
+            </VBox>
+
+        </VBox>
+    </ScrollPane>
+</VBox>

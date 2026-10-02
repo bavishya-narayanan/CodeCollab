@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.codecollab.client.ui.chat.ChatController">
+
+    <!-- Room list -->
+    <left>
+        <VBox styleClass="sidebar" prefWidth="200" spacing="0">
+            <Label text="Rooms" style="-fx-padding: 12 12 4 12; -fx-font-weight: bold;" />
+            <ListView fx:id="roomList" VBox.vgrow="ALWAYS" styleClass="list-view" />
+            <Separator />
+            <HBox spacing="6" style="-fx-padding: 8;">
+                <TextField fx:id="newRoomField" promptText="new-room" HBox.hgrow="ALWAYS"
+                           styleClass="text-field" />
+                <Button text="+" onAction="#handleCreateRoom" styleClass="btn-primary" />
+            </HBox>
+        </VBox>
+    </left>
+
+    <!-- Chat area -->
+    <center>
+        <VBox spacing="0">
+            <!-- Room header -->
+            <HBox styleClass="header" alignment="CENTER_LEFT" spacing="12">
+                <Label fx:id="roomLabel" text="Select a room" style="-fx-font-weight: bold;" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="onlineLabel" text="" styleClass="label-muted" />
+            </HBox>
+
+            <!-- Messages -->
+            <ScrollPane fx:id="messagesScroll" fitToWidth="true" VBox.vgrow="ALWAYS"
+                        styleClass="scroll-pane">
+                <VBox fx:id="messagesBox" spacing="4" style="-fx-padding: 8;" />
+            </ScrollPane>
+
+            <!-- Input -->
+            <HBox spacing="8" style="-fx-padding: 8;" alignment="CENTER">
+                <TextField fx:id="messageInput" promptText="Type a message…"
+                           HBox.hgrow="ALWAYS" styleClass="text-field"
+                           onAction="#handleSend" />
+                <Button fx:id="sendBtn" text="Send" onAction="#handleSend"
+                        styleClass="btn-primary" />
+            </HBox>
+        </VBox>
+    </center>
+
+</BorderPane>

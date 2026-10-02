@@ -1,0 +1,2 @@
+# This package is reserved for Phase 1 — User authentication & registration.
+# Add User entity, UserRepository, UserService, and AuthController here.

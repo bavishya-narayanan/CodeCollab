@@ -1,0 +1,55 @@
+# ==================== BUILD OUTPUT ====================
+target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+
+# ==================== COMPILED FILES ==================
+*.class
+*.jar
+*.war
+*.ear
+
+# ==================== LOGS ===========================
+logs/
+*.log
+*.log.*
+
+# ==================== IDE — IntelliJ IDEA ============
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# ==================== IDE — VS Code ==================
+.vscode/
+*.code-workspace
+
+# ==================== IDE — Eclipse ==================
+.settings/
+.project
+.classpath
+.factorypath
+bin/
+
+# ==================== OS ARTIFACTS ===================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ==================== SECRETS ========================
+# Never commit credentials — use environment variables or a secrets manager
+*.env
+.env
+.env.*
+application-local.yml
+application-secrets.yml
+secrets/
+
+# ==================== DOCKER =========================
+# Named volumes are managed by Docker, not source control
+docker-volumes/

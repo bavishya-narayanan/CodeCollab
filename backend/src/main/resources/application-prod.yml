@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    # Defaults to the Docker Compose service hostname in production
+    url: ${DB_URL:jdbc:postgresql://postgres:5432/codecollab}
+    username: ${DB_USERNAME:codecollab}
+    password: ${DB_PASSWORD:codecollab}
+    driver-class-name: org.postgresql.Driver
+
+  data:
+    redis:
+      # Defaults to the Docker Compose service hostname in production
+      host: ${REDIS_HOST:redis}
+      port: ${REDIS_PORT:6379}
+
+logging:
+  level:
+    root: WARN
+    com.codecollab: INFO
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # Minimal surface area exposed in production
+        include: health,info

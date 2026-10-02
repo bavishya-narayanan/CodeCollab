@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/codecollab?sslmode=disable
+    username: codecollab
+    password: codecollab
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      # 30 seconds before failing to get a connection from the pool
+      connection-timeout: 30000
+
+logging:
+  level:
+    com.codecollab: DEBUG
+
+codecollab:
+  jwt:
+    secret: dev-only-secret-do-not-use-in-prod-at-least-32-chars

@@ -1,0 +1,2 @@
+# This package is reserved for Phase 4 — Real-time chat with WebSocket.
+# Add ChatMessage entity, WebSocketConfig, ChatController, and presence tracking here.

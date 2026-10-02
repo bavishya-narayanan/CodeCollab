@@ -1,0 +1,2 @@
+# This package is reserved for Phase 5 — AST analysis with JavaParser.
+# Add AstAnalysisService, CodeMetrics, and ComplexityController here.

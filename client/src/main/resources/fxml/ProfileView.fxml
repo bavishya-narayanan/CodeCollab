@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.codecollab.client.ui.profile.ProfileController"
+      spacing="16" styleClass="content-area"
+      style="-fx-padding: 30; -fx-alignment: center-left;">
+
+    <Label text="My Profile" styleClass="label-title" />
+
+    <VBox spacing="8" styleClass="card" maxWidth="400">
+        <HBox spacing="12">
+            <Label text="Username" styleClass="form-label" prefWidth="100" />
+            <Label fx:id="usernameLabel" style="-fx-font-weight: bold;" />
+        </HBox>
+        <HBox spacing="12">
+            <Label text="Email" styleClass="form-label" prefWidth="100" />
+            <Label fx:id="emailLabel" />
+        </HBox>
+        <HBox spacing="12">
+            <Label text="Role" styleClass="form-label" prefWidth="100" />
+            <Label fx:id="roleLabel" styleClass="label-tag" />
+        </HBox>
+        <HBox spacing="12">
+            <Label text="Member Since" styleClass="form-label" prefWidth="100" />
+            <Label fx:id="memberSinceLabel" />
+        </HBox>
+    </VBox>
+
+</VBox>

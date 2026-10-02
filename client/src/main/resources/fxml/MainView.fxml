@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.codecollab.client.ui.main.MainController"
+            fx:id="rootPane" styleClass="root">
+
+    <!-- Sidebar -->
+    <left>
+        <VBox fx:id="sidebar" styleClass="sidebar" spacing="0">
+
+            <!-- App branding -->
+            <VBox styleClass="sidebar-header" style="-fx-padding: 20 16 16 16;">
+                <Label text="CodeCollab" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #89b4fa;" />
+                <Label fx:id="usernameLabel" text="" styleClass="label-muted" />
+                <Label fx:id="roleLabel" text="" styleClass="label-tag" style="-fx-margin-top: 4;" />
+            </VBox>
+
+            <Separator />
+
+            <!-- Nav buttons -->
+            <Button fx:id="btnSnippets"   text="⬡  Browse Snippets" onAction="#onSnippets"
+                    styleClass="sidebar-button" />
+            <Button fx:id="btnMySnippets" text="◈  My Snippets"     onAction="#onMySnippets"
+                    styleClass="sidebar-button" />
+            <Button fx:id="btnSearch"     text="⌕  Search"          onAction="#onSearch"
+                    styleClass="sidebar-button" />
+            <Button fx:id="btnChat"       text="◉  Chat"            onAction="#onChat"
+                    styleClass="sidebar-button" />
+            <Button fx:id="btnProfile"    text="◎  Profile"         onAction="#onProfile"
+                    styleClass="sidebar-button" />
+
+            <!-- Spacer -->
+            <Region VBox.vgrow="ALWAYS" />
+
+            <Separator />
+            <Button text="⏻  Logout" onAction="#onLogout"
+                    styleClass="sidebar-button"
+                    style="-fx-text-fill: #f38ba8;" />
+            <VBox.margin>
+                <Insets bottom="8" />
+            </VBox.margin>
+        </VBox>
+    </left>
+
+    <!-- Content area filled dynamically -->
+    <center>
+        <StackPane styleClass="content-area" />
+    </center>
+
+</BorderPane>

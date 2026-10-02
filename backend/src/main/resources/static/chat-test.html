@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CodeCollab Chat Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .chat-box { border: 1px solid #ccc; height: 300px; overflow-y: scroll; padding: 10px; margin-bottom: 10px; }
+        .msg { margin-bottom: 5px; }
+        .system { color: #888; font-style: italic; }
+    </style>
+</head>
+<body>
+    <h2>CodeCollab Chat Test</h2>
+    <div>
+        <input type="text" id="jwt" placeholder="JWT Token" size="50">
+        <button onclick="connect()">Connect</button>
+        <button onclick="disconnect()">Disconnect</button>
+    </div>
+    <div style="margin-top: 10px;">
+        <input type="text" id="roomId" placeholder="Room ID (e.g. 1)" size="10">
+        <button onclick="joinRoom()">Join Room</button>
+        <button onclick="leaveRoom()">Leave Room</button>
+    </div>
+    
+    <div class="chat-box" id="chat"></div>
+    
+    <div>
+        <input type="text" id="message" placeholder="Type a message..." size="50">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        let stompClient = null;
+        let currentRoom = null;
+
+        function connect() {
+            const jwt = document.getElementById('jwt').value;
+            if (!jwt) return alert("JWT required");
+            
+            const socket = new SockJS('/ws?token=' + jwt);
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function (frame) {
+                console.log('Connected: ' + frame);
+                alert("Connected!");
+            }, function(err) {
+                console.error(err);
+                alert("Connection failed");
+            });
+        }
+
+        function disconnect() {
+            if (stompClient !== null) {
+                stompClient.disconnect();
+            }
+            console.log("Disconnected");
+        }
+
+        function joinRoom() {
+            if (!stompClient) return alert("Not connected");
+            const roomId = document.getElementById('roomId').value;
+            if (!roomId) return;
+            currentRoom = roomId;
+
+            stompClient.subscribe('/topic/chat/room/' + roomId, function (msg) {
+                showMsg(JSON.parse(msg.body));
+            });
+            stompClient.subscribe('/topic/presence/room/' + roomId, function (msg) {
+                showPresence(JSON.parse(msg.body));
+            });
+
+            stompClient.send("/app/presence/join/" + roomId, {}, {});
+            
+            // start heartbeat
+            setInterval(() => {
+                if (stompClient && currentRoom) {
+                    stompClient.send("/app/presence/heartbeat/" + currentRoom, {}, {});
+                }
+            }, 30000);
+        }
+
+        function leaveRoom() {
+            if (!stompClient || !currentRoom) return;
+            stompClient.send("/app/presence/leave/" + currentRoom, {}, {});
+            currentRoom = null;
+        }
+
+        function sendMessage() {
+            if (!stompClient || !currentRoom) return alert("Join a room first");
+            const content = document.getElementById('message').value;
+            stompClient.send("/app/chat/room/" + currentRoom, {}, JSON.stringify({ content: content }));
+            document.getElementById('message').value = '';
+        }
+
+        function showMsg(message) {
+            const chat = document.getElementById('chat');
+            const el = document.createElement('div');
+            el.className = 'msg';
+            el.innerHTML = `<b>${message.senderUsername}</b>: ${message.content}`;
+            chat.appendChild(el);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function showPresence(p) {
+            const chat = document.getElementById('chat');
+            const el = document.createElement('div');
+            el.className = 'msg system';
+            el.innerHTML = `${p.username} ${p.action === 'JOIN' ? 'joined' : 'left'} (Online: ${p.onlineCount})`;
+            chat.appendChild(el);
+            chat.scrollTop = chat.scrollHeight;
+        }
+    </script>
+</body>
+</html>
